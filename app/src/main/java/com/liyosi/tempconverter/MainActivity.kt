@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -33,19 +34,37 @@ class MainActivity : AppCompatActivity() {
 
     private fun onAboutBtnClicked(btn: View) {
         println("About button clicked")
+        // Initialize a new instance of
+        val builder = AlertDialog.Builder(this@MainActivity)
+
+        // Set the alert dialog title
+        builder.setTitle("Temperature Converter By: Fred")
+
+        // Display a message on alert dialog
+        builder.setMessage("")
+
+        // Display a neutral button on alert dialog
+        builder.setNeutralButton("Cancel"){_,_ ->
+            Toast.makeText(applicationContext,"You cancelled the dialog.",Toast.LENGTH_SHORT).show()
+        }
+
+        // Finally, make the alert dialog using builder
+        val dialog: AlertDialog = builder.create()
+
+        // Display the alert dialog on app interface
+        dialog.show()
     }
 
     private fun onCalculateBtnClicked(btn: View) {
         val reading : String= readingInput.text.toString()
         val scale: Int = scaleInput.checkedRadioButtonId
-        val scaleReading: String = resources.getResourceEntryName(scaleInput.checkedRadioButtonId)
 
         if (reading == "") {
             Toast.makeText(applicationContext,"Please input the value to convert", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val convertedValue = if (scale == R.id.celsius) toFahrenheit(reading.toDouble()) else toCelicus(reading.toDouble())
+        val convertedValue = if (scale == R.id.celsius) toFahrenheit(reading.toDouble()) else toCelsius(reading.toDouble())
         readingInput.setText(convertedValue.toString())
     }
 
@@ -55,9 +74,9 @@ class MainActivity : AppCompatActivity() {
         return ((9.times(celcius) ) / 5.0 ) + 32.0
     }
 
-    private fun toCelicus(fahrenheit: Double): Double {
+    private fun toCelsius(fahrenheit: Double): Double {
         // Deduct 32, then multiply by 5, then divide by 9
-        println("Converting $fahrenheit to celcius")
+        println("Converting $fahrenheit to Celsius")
         return ((fahrenheit - 32) * 5 ) / 9
     }
 
