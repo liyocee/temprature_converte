@@ -4,6 +4,6 @@
     <string name="fahrenheit">Fahrenheit</string>
     <string name="about">About</string>
     <string name="calculate">Calculate</string>
-    <string name="choose_scale">Choose Scale</string>
+    <string name="choose_scale">Convert to: </string>
     <string name="reading_placeholder">Enter value to convert</string>
 </resources>

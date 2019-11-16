@@ -36,18 +36,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onCalculateBtnClicked(btn: View) {
-        println("Calculate button clicked")
         val reading : String= readingInput.text.toString()
         val scale: Int = scaleInput.checkedRadioButtonId
-        val scaleReading: String = resources.getResourceEntryName(scale)
+        val scaleReading: String = resources.getResourceEntryName(scaleInput.checkedRadioButtonId)
 
         if (reading == "") {
             Toast.makeText(applicationContext,"Please input the value to convert", Toast.LENGTH_SHORT).show()
             return
         }
 
+        val convertedValue = if (scale == R.id.celsius) toFahrenheit(reading.toDouble()) else toCelicus(reading.toDouble())
+        readingInput.setText(convertedValue.toString())
+    }
 
-        println("Reading is $reading scale is $scaleReading")
+    private fun toFahrenheit(celcius: Double): Double {
+        // Multiply by 9, then divide by 5, then add 32
+        println("Converting $celcius to fahrenheit ")
+        return ((9.times(celcius) ) / 5.0 ) + 32.0
+    }
+
+    private fun toCelicus(fahrenheit: Double): Double {
+        // Deduct 32, then multiply by 5, then divide by 9
+        println("Converting $fahrenheit to celcius")
+        return ((fahrenheit - 32) * 5 ) / 9
     }
 
 }
